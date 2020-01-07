@@ -19,11 +19,7 @@ function App() {
             path="/:type/add"
             render={props => <AddSingle {...props} />}
           />
-          <Route
-            exact
-            path="/:type/:id"
-            render={props => <Single {...props} />}
-          />
+          <Route path="/:type/:id" render={props => <Single {...props} />} />
           <Route exact path="/:type" render={props => <Archive {...props} />} />
         </Switch>
       </Router>

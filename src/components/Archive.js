@@ -18,6 +18,7 @@ const Archive = props => {
   const { type } = props.match.params
 
   const getData = query => {
+    let requestBody = {}
     fetch(`http://localhost:4000/api/${type}`)
       .then(response => {
         return response.json()
@@ -26,6 +27,8 @@ const Archive = props => {
         setArchive(myJson)
       })
   }
+
+  const editData = query => {}
 
   useEffect(() => {
     getData()
@@ -55,7 +58,7 @@ const Archive = props => {
             })}
           </CardContent>
           <CardActions>
-            <Link to={`${type}/${singleData._id}`}>
+            <Link to={`/${type}/${singleData._id}`}>
               <Button size="small">More</Button>
             </Link>
           </CardActions>

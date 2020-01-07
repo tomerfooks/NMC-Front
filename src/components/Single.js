@@ -3,8 +3,9 @@ import React, { useEffect, useState } from "react"
 const Single = props => {
   const [single, setSingle] = useState([])
   const { type, id } = props.match.params
+  const [singleFields, setArchiveFields] = useState(["title", "content"])
 
-  const getData = () => {
+  const getData = query => {
     fetch(`http://localhost:4000/api/${type}/${id}`)
       .then(response => response.json())
       .then(myJson => {
@@ -18,8 +19,17 @@ const Single = props => {
 
   return single ? (
     <div key={single.title} className="Single">
-      <h2>{single.title}</h2>
-      <p>{single.content}</p>
+      {Object.keys(single).map(fieldKey => {
+        if (
+          fieldKey !== "_id" &&
+          fieldKey !== "id" &&
+          singleFields.includes(fieldKey)
+        )
+          return (
+            <div className={"field " + fieldKey}>{`${single[fieldKey]}`}</div>
+          )
+        return <></>
+      })}
     </div>
   ) : (
     "loading"
