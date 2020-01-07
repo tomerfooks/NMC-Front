@@ -1,26 +1,34 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect, useState } from "react"
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom"
+
+import Archive from "./components/Archive.js"
+import Single from "./components/Single.js"
+import AddSingle from "./components/AddSingle.js"
+import Menu from "./layout/Menu"
+
+import "./App.css"
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Router>
+        <Menu />
+        <Switch>
+          <Route
+            exact
+            path="/:type/add"
+            render={props => <AddSingle {...props} />}
+          />
+          <Route
+            exact
+            path="/:type/:id"
+            render={props => <Single {...props} />}
+          />
+          <Route exact path="/:type" render={props => <Archive {...props} />} />
+        </Switch>
+      </Router>
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
