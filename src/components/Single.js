@@ -8,8 +8,8 @@ const Single = props => {
   const getData = query => {
     fetch(`http://localhost:4000/api/${type}/${id}`)
       .then(response => response.json())
-      .then(myJson => {
-        setSingle(myJson)
+      .then(json => {
+        setSingle(json)
       })
   }
 
