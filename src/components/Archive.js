@@ -33,7 +33,7 @@ const Archive = props => {
     }, [])
 
     return archive ? (
-        <div className="Archive grid grid3">
+        <div className="Archive">
             {archive.map(singleData => (
                 <div
                     variant="outlined"

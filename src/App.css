@@ -4,16 +4,10 @@
 }
 
 .Archive {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
     grid-gap: 3%;
     max-width: 100%;
-}
-
-.grid {
-    display: grid;
-}
-
-.grid3 {
-    grid-template-columns: 1fr 1fr 1fr;
 }
 
 .SingleInArchive {
