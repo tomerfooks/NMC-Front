@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react"
 import { Link, Router } from "react-router-dom"
 
 const SingleInArchive = props => {
-    const { type } = props.match.params
+    const singleData = props.props
 
     return (
         <div className="Archive grid grid3">
