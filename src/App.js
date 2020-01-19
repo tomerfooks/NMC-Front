@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from "react"
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom"
+import React from "react"
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom"
 
 import Archive from "./components/Archive.js"
 import Single from "./components/Single.js"
 import AddSingle from "./components/AddSingle.js"
 import Menu from "./layout/Menu"
 
-import "./App.css"
+import "./App.scss"
 
 function App() {
     return (
