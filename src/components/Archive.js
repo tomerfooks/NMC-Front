@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react"
-import SingleInArchive from "../templates/SingleInArchive"
+import React, { useEffect, useState } from 'react'
+import SingleInArchive from './templates/post/SingleInArchive'
 
 const Archive = props => {
     const [archive, setArchive] = useState([])
@@ -20,7 +20,7 @@ const Archive = props => {
     }, [])
 
     return (
-        <div className={"Archive " + type} key={"archive " + type}>
+        <div className={'Archive ' + type} key={'archive ' + type}>
             {archive.map(singleData => {
                 console.log(singleData)
                 return (

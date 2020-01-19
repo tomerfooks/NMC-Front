@@ -1,22 +1,32 @@
 $padding: (
-    "thin": 10px,
-    "medium": 20px,
-    "thick": 40px
+    'thin': 10px,
+    'medium': 20px,
+    'thick': 40px
 );
 $margins: (
-    "thin": 10px,
-    "medium": 20px,
-    "thick": 40px
+    'thin': 10px,
+    'medium': 20px,
+    'thick': 40px
 );
 $borderRadius: (
-    "little": 5px,
-    "medium": 10px,
-    "much": 15px
+    'little': 5px,
+    'medium': 10px,
+    'much': 15px
 );
+$containerWidth: 1200px;
+$headerWidth: 100%;
+$layout: 'content-sidebar';
+
+html,
+body {
+    width: 100wv;
+    height: 100wh;
+}
 
 .appContainer {
-    background-color: map-get($bgColors, "light");
+    background-color: map-get($bgColors, 'light');
     width: $containerWidth;
+    margin: 0 auto;
     .header {
         width: $headerWidth;
         display: grid;
@@ -32,15 +42,15 @@ $borderRadius: (
         grid-template-columns: 3fr 1fr;
         width: 100%;
         .content {
-            background-color: map-get($bgColors, "default");
+            background-color: map-get($bgColors, 'default');
         }
         .sideBar {
-            background-color: map-get($bgColors, "light");
+            background-color: map-get($bgColors, 'light');
         }
     }
     .appFooter {
         grid-template-columns: 1fr 1fr 1fr;
-        grid: map-get($padding, "thick");
-        background-color: map-get($bgColors, "dark");
+        grid: map-get($padding, 'thick');
+        background-color: map-get($bgColors, 'dark');
     }
 }

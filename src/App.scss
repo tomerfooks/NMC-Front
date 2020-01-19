@@ -1,16 +1,7 @@
-$layout: "content-sidebar";
-$containerWidth: 100%;
-$headerWidth: 100%;
-html,
-body {
-    width: 100wv;
-    height: 100wh;
-}
-
-@import "./styles/colors.scss";
-@import "./styles/layout.scss";
-@import "./styles/fonts.scss";
-@import "./styles/forms.scss";
+@import './styles/colors.scss';
+@import './styles/layout.scss';
+@import './styles/fonts.scss';
+@import './styles/forms.scss';
 
 // Include file for every objectType in the App
-@import "./styles/objectTypes/post/post.scss";
+@import './styles/post.scss';

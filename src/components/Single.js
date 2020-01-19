@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from "react"
+import React, { useEffect, useState } from 'react'
 
 const Single = props => {
     const [single, setSingle] = useState([])
     const { type, id } = props.match.params
 
     const getData = query => {
-        console.log("getting data for single..")
+        console.log('getting data for single..')
         fetch(`http://localhost:4000/api/get/${type}/${id}`)
             .then(response => response.json())
             .then(json => {
@@ -17,20 +17,18 @@ const Single = props => {
         getData({})
     }, [])
 
-    return single ? (
-        <div key={single.title} className="Single">
+    return (
+        <div key={single.title} className='Single'>
             {Object.keys(single).map(fieldKey => {
-                if (fieldKey !== "_id" && fieldKey !== "id")
+                if (fieldKey !== '_id' && fieldKey !== 'id')
                     return (
                         <div
-                            className={"field " + fieldKey}
+                            className={'field ' + fieldKey}
                         >{`${single[fieldKey]}`}</div>
                     )
                 return <></>
             })}
         </div>
-    ) : (
-        "loading"
     )
 }
 

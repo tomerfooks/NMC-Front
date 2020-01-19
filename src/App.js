@@ -1,35 +1,39 @@
-import React from "react"
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom"
+import React from 'react'
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 
-import Archive from "./components/Archive.js"
-import Single from "./components/Single.js"
-import AddSingle from "./components/AddSingle.js"
-import Menu from "./layout/Menu"
+//// M A IN
+import Archive from './components/Archive.js'
+import Single from './components/Single.js'
+import Menu from './components/Menu'
 
-import "./App.scss"
+/// A U T H
+import Login from './components/auth/Login'
+
+/// D E S I G N
+import './App.scss'
 
 function App() {
     return (
-        <div className="App">
+        <div className='App'>
             <Router>
                 <Menu />
                 <Switch>
                     <Route
-                        exact
-                        path="/:type/add"
-                        render={props => <AddSingle {...props} />}
-                    />
-                    <Route
-                        path="/:type/:id"
+                        path='/:type/:id'
                         render={props => <Single {...props} />}
                     />
                     <Route
                         exact
-                        path="/:type"
+                        path='/:type'
                         render={props => (
-                            <Archive key="post-archive" {...props} />
+                            <Archive key='post-archive' {...props} />
                         )}
                     />
+                    <Route
+                        exact
+                        path='/auth/login'
+                        render={props => Login}
+                    ></Route>
                 </Switch>
             </Router>
         </div>
