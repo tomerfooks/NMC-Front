@@ -9,7 +9,10 @@ const SingleInArchive = props => {
     if (typeof singleData.type === 'undefined') return <></>
 
     return (
-        <div className={'SingleInArchive '} key={singleData._id}>
+        <div
+            className={'SingleInArchive ' + singleData.type}
+            key={singleData._id}
+        >
             {Object.keys(singleData).map(
                 fieldKey =>
                     includeFields.includes(fieldKey) && (
