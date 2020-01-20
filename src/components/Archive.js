@@ -7,6 +7,9 @@ const Archive = props => {
     const getData = query => {
         fetch(`http://localhost:4000/api/get/${type}`)
             .then(response => response.json())
+            .then(response => {
+                return response.json()
+            })
             .then(myJson => {
                 setArchive(myJson)
             })
@@ -18,6 +21,11 @@ const Archive = props => {
 
     return (
         <div className={'Archive ' + type} key={'archive ' + type}>
+        getData()
+    }, [])
+
+    return (
+        <div className="Archive" key={'archive ' + type}>
             {archive.map(singleData => {
                 return (
                     <SingleInArchive key={singleData.id} props={singleData} />
