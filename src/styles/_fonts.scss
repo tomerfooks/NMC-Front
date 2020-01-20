@@ -1,0 +1,14 @@
+$fontSizes: (
+    'very-small': 12px,
+    'small': 16px,
+    'medium': 24px,
+    'big': 32px,
+    'verybig': 44px,
+    'huge': 60px
+);
+$mainFontFamily: 'Rubik', sans-serif;
+$secondaryFontFamily: 'Lato';
+
+a {
+    text-decoration: none;
+}

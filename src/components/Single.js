@@ -1,37 +1,42 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useContext } from 'react'
+import AuthContext from './AuthContext'
 
 const Single = props => {
-  const [single, setSingle] = useState([])
-  const { type, id } = props.match.params
+    const [single, setSingle] = useState([])
+    const { type, id } = props.match.params
+    const AuthContext = useContext(AuthContext)
+    const getData = query => {
+        console.log('getting data for single..', AuthContext)
+        fetch(`http://localhost:4000/api/get/${type}/${id}`)
+            .then(response => response.json())
+            .then(json => {
+                setSingle(json)
+            })
+    }
 
-  const getData = query => {
-    console.log('getting datafor single..')
-    fetch(`http://localhost:4000/api/${type}/${id}`)
-      .then(response => response.json())
-      .then(json => {
-        console.log(json)
-        setSingle(json)
-      })
-  }
+    useEffect(() => {
+        getData({})
+    }, [])
 
-  useEffect(() => {
-    getData()
-  }, [])
-
-  return single ? (
-    <div key={single.title} className="Single">
-      <img src={single.mainImage} />
-      {Object.keys(single).map(fieldKey => {
-        if (fieldKey !== '_id' && fieldKey !== 'id')
-          return (
-            <div className={'field ' + fieldKey}>{`${single[fieldKey]}`}</div>
-          )
-        return <></>
-      })}
-    </div>
-  ) : (
-    'loading'
-  )
+    return (
+        <AuthContext.Consumer>
+            {value => {
+                return (
+                    <div key={single.title} className='Single'>
+                        {Object.keys(single).map(fieldKey => {
+                            if (fieldKey !== '_id' && fieldKey !== 'id')
+                                return (
+                                    <div
+                                        className={'field ' + fieldKey}
+                                    >{`${single[fieldKey]}`}</div>
+                                )
+                            return <></>
+                        })}
+                    </div>
+                )
+            }}
+        </AuthContext.Consumer>
+    )
 }
 
 export default Single
