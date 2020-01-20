@@ -9,7 +9,11 @@ const Archive = props => {
 
     const getData = query => {
         fetch(`http://localhost:4000/api/get/${type}`, {
-            signal: signal
+            signal: signal,
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: 'tomer'
+            }
         })
             .then(response => {
                 return response.json()
