@@ -1,8 +1,10 @@
 import React from 'react'
 import { useState } from 'react'
-const Login = () => {
-    const [fromData, setFormData] = useState({})
+import AuthContext from '../AuthContext'
+import Cookie from 'js-cookie'
 
+const Login = props => {
+    const [fromData, setFormData] = useState({})
     const submit = e => {
         e.preventDefault()
         const email = e.target.email.value
@@ -18,35 +20,35 @@ const Login = () => {
                 Accept: 'application/json',
                 'Content-Type': 'application/json'
             },
-            mode: 'cors',
-            cache: 'no-cache',
             body: JSON.stringify(credentials)
         }
-        fetch(uri, options, data => {
-            console.log('what?')
-        })
-            .then(data => {
-                console.log(data.json())
+        fetch(uri, options)
+            .then(response => response.json())
+            .then(user => {
+                Cookie.set('token', user.token)
+                props.currentUser.updateCurrentUser(user)
             })
-            .catch(err => console.log(err))
     }
-
     return (
-        <div className='Login'>
+        <div className="Login">
             <form onSubmit={submit}>
                 <input
-                    type='email'
-                    placeholder='Enter Email'
-                    className='formField'
-                    name='email'
+                    type="email"
+                    autoComplete="true"
+                    placeholder="Enter Email"
+                    className="formField"
+                    name="email"
+                    value="tom@fooks.co.il"
                 />
                 <input
-                    type='password'
-                    placeholder='Enter Password'
-                    className='formField'
-                    name='password'
+                    type="password"
+                    value="tomer123"
+                    autoComplete="true"
+                    placeholder="Enter Password"
+                    className="formField"
+                    name="password"
                 />
-                <input className='formButtton' value='submit' type='submit' />
+                <input className="formButtton" value="submit" type="submit" />
             </form>
         </div>
     )

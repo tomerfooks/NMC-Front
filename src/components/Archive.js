@@ -12,7 +12,7 @@ const Archive = props => {
             signal: signal,
             headers: {
                 'Content-Type': 'application/json',
-                Authorization: 'tomer'
+                Authorization: props.currentUser.token
             }
         })
             .then(response => {
@@ -35,7 +35,7 @@ const Archive = props => {
         <div className={'Archive ' + type} key={'archive ' + type}>
             {archive.map(singleData => {
                 return (
-                    <SingleInArchive key={singleData.id} props={singleData} />
+                    <SingleInArchive key={singleData._id} props={singleData} />
                 )
             })}
         </div>

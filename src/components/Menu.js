@@ -3,17 +3,19 @@ import { Link } from 'react-router-dom'
 
 const Menu = () => {
     return (
-        <div className='Menu'>
-            <nav>
-                <ul>
-                    <li>
-                        <Link to='/'>Home</Link>
-                    </li>
-                    <li>
-                        <Link to='/post'>Posts</Link>
-                    </li>
-                </ul>
-            </nav>
+        <div className="Menu">
+            <div>
+                <Link to="/">Home</Link>
+            </div>
+            <div>
+                <Link to="/post">Posts</Link>
+            </div>
+            <div>
+                <Link to="/login">Login</Link>
+            </div>
+            <div>
+                <Link to="/create/post">Create</Link>
+            </div>
         </div>
     )
 }

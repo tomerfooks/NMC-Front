@@ -16,7 +16,10 @@ const SingleInArchive = props => {
             {Object.keys(singleData).map(
                 fieldKey =>
                     includeFields.includes(fieldKey) && (
-                        <Link to={'/' + singleData.type + '/' + singleData._id}>
+                        <Link
+                            key={'-' + fieldKey}
+                            to={'/' + singleData.type + '/' + singleData._id}
+                        >
                             <div
                                 className={`field ${fieldKey}`}
                             >{`${singleData[fieldKey]}`}</div>
