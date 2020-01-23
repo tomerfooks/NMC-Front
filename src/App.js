@@ -1,6 +1,6 @@
 import React from 'react'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
-import { useState, useEffect, useContext } from 'react'
+import { useState, useEffect } from 'react'
 import Cookie from 'js-cookie'
 
 //// M A IN
@@ -10,7 +10,7 @@ import Single from './components/Single.js'
 
 /// A U T H
 import Login from './components/auth/Login'
-import AuthContext from './components/AuthContext'
+import AppContext from './components/AppContext'
 
 /// C R U D
 import CreateNewObject from './components/CreateNewObject'
@@ -60,18 +60,17 @@ function App() {
         if (currentUser.token === null) checkAuth()
         else console.log('Current Logged User: ', currentUser)
     })
-
     return (
-        <div className="App">
-            <AuthContext.Provider value={{ currentUser, updateCurrentUser }}>
-                <AuthContext.Consumer>
+        <div className='appContainer'>
+            <AppContext.Provider value={{ currentUser, updateCurrentUser }}>
+                <AppContext.Consumer>
                     {user => (
                         <Router>
                             <Header></Header>
                             <Switch>
                                 <Route
                                     exact
-                                    path="/login"
+                                    path='/login'
                                     render={props => (
                                         <Login
                                             currentUser={{
@@ -84,7 +83,18 @@ function App() {
                                 ></Route>
                                 <Route
                                     exact
-                                    path="/create/:type"
+                                    path='/:objectType'
+                                    render={props => (
+                                        <Archive
+                                            currentUser={currentUser}
+                                            {...props}
+                                        />
+                                    )}
+                                />
+
+                                <Route
+                                    exact
+                                    path='/create/:objectType'
                                     render={props => (
                                         <CreateNewObject
                                             currentUser={currentUser}
@@ -94,24 +104,19 @@ function App() {
                                 />
                                 <Route
                                     exact
-                                    path="/:type"
+                                    path='/:objectType/:id'
                                     render={props => (
-                                        <Archive
+                                        <Single
                                             currentUser={currentUser}
                                             {...props}
                                         />
                                     )}
                                 />
-                                <Route
-                                    exact
-                                    path="/:type/:id"
-                                    render={props => <Single {...props} />}
-                                />
                             </Switch>
                         </Router>
                     )}
-                </AuthContext.Consumer>
-            </AuthContext.Provider>
+                </AppContext.Consumer>
+            </AppContext.Provider>
         </div>
     )
 }

@@ -1,10 +1,9 @@
 import React from 'react'
 import { useState } from 'react'
-import AuthContext from './AuthContext'
+import AppContext from './AppContext'
 import Cookie from 'js-cookie'
 
 const CreateNewObject = props => {
-    const [fromData, setFormData] = useState({})
     const submit = e => {
         e.preventDefault()
         const newObject = {
@@ -31,28 +30,28 @@ const CreateNewObject = props => {
             })
     }
     return (
-        <div className="CreateNewObject">
+        <div className='CreateNewObject'>
             <form onSubmit={submit}>
                 <input
-                    type="text"
-                    autoComplete="true"
-                    placeholder="Enter Title"
-                    className="formField"
-                    name="title"
+                    type='text'
+                    autoComplete='true'
+                    placeholder='Enter Title'
+                    className='formField'
+                    name='title'
                 />
                 <input
-                    type="text"
-                    autoComplete="true"
-                    placeholder="Enter The Main Content"
-                    className="formField"
-                    name="content"
+                    type='text'
+                    autoComplete='true'
+                    placeholder='Enter The Main Content'
+                    className='formField'
+                    name='content'
                 />
-                <select name="status">
-                    <option value="pending">Pending</option>
-                    <option value="active">Active</option>
-                    <option value="draft">Draft</option>
+                <select name='status'>
+                    <option value='pending'>Pending</option>
+                    <option value='active'>Active</option>
+                    <option value='draft'>Draft</option>
                 </select>
-                <input className="formButtton" value="submit" type="submit" />
+                <input className='formButtton' value='submit' type='submit' />
             </form>
         </div>
     )

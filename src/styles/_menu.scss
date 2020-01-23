@@ -1,0 +1,8 @@
+$menuItemsAmount: 5;
+.Menu {
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    display: grid;
+    .menuItem {
+        padding: 20px 10px;
+    }
+}

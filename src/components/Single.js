@@ -1,12 +1,11 @@
 import React, { useEffect, useState, useContext } from 'react'
-import AuthContext from './AuthContext'
 
 const Single = props => {
     const [single, setSingle] = useState([])
-    const { type, id } = props.match.params
+    const { objectType, id } = props.match.params
     const getData = query => {
-        console.log('getting data for single..')
-        fetch(`http://localhost:4000/api/get/${type}/${id}`)
+        console.log('Getting data for single..')
+        fetch(`http://localhost:4000/api/get/${objectType}/${id}`)
             .then(response => response.json())
             .then(json => {
                 setSingle(json)
@@ -18,7 +17,7 @@ const Single = props => {
     }, [])
 
     return (
-        <div key={single.title} className="Single">
+        <div key={single.title} className='Single'>
             {Object.keys(single).map(fieldKey => {
                 if (fieldKey !== '_id' && fieldKey !== 'id')
                     return (

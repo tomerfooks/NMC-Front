@@ -1,23 +1,22 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
+
 import SingleInArchive from './templates/post/SingleInArchive'
 
 const Archive = props => {
     const [archive, setArchive] = useState([])
-    const { type } = props.match.params
+    const { objectType } = props.match.params
     const abortController = new AbortController()
     const signal = abortController.signal
 
     const getData = query => {
-        fetch(`http://localhost:4000/api/get/${type}`, {
+        fetch(`http://localhost:4000/api/get/${objectType}`, {
             signal: signal,
             headers: {
                 'Content-Type': 'application/json',
                 Authorization: props.currentUser.token
             }
         })
-            .then(response => {
-                return response.json()
-            })
+            .then(response => response.json())
             .then(myJson => {
                 setArchive(myJson)
             })
@@ -32,7 +31,7 @@ const Archive = props => {
     }, [])
 
     return (
-        <div className={'Archive ' + type} key={'archive ' + type}>
+        <div className={'Archive ' + objectType} key={'archive ' + objectType}>
             {archive.map(singleData => {
                 return (
                     <SingleInArchive key={singleData._id} props={singleData} />

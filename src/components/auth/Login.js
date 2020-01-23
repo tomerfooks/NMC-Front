@@ -1,10 +1,9 @@
 import React from 'react'
 import { useState } from 'react'
-import AuthContext from '../AuthContext'
+import AppContext from '../AppContext'
 import Cookie from 'js-cookie'
 
 const Login = props => {
-    const [fromData, setFormData] = useState({})
     const submit = e => {
         e.preventDefault()
         const email = e.target.email.value
@@ -30,25 +29,25 @@ const Login = props => {
             })
     }
     return (
-        <div className="Login">
+        <div className='Login'>
             <form onSubmit={submit}>
                 <input
-                    type="email"
-                    autoComplete="true"
-                    placeholder="Enter Email"
-                    className="formField"
-                    name="email"
-                    value="tom@fooks.co.il"
+                    type='email'
+                    autoComplete='true'
+                    placeholder='Enter Email'
+                    className='formField'
+                    name='email'
+                    value='tom@fooks.co.il'
                 />
                 <input
-                    type="password"
-                    value="tomer123"
-                    autoComplete="true"
-                    placeholder="Enter Password"
-                    className="formField"
-                    name="password"
+                    type='password'
+                    value='tomer123'
+                    autoComplete='true'
+                    placeholder='Enter Password'
+                    className='formField'
+                    name='password'
                 />
-                <input className="formButtton" value="submit" type="submit" />
+                <input className='formButtton' value='submit' type='submit' />
             </form>
         </div>
     )
