@@ -46,7 +46,7 @@ body {
         .content {
             padding: 30px;
 
-            background-color: map-get($bgColors, 'default');
+            background-color: map-get($bgColors, 'light');
         }
         .sideBar {
             background-color: map-get($bgColors, 'light');
