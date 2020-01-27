@@ -14,7 +14,7 @@ const Single = props => {
     }, [])
 
     return (
-        <div key={single.title} className='Single'>
+        <div key={single.title} className="Single">
             {Object.keys(single).map(fieldKey => {
                 if (fieldKey !== '_id' && fieldKey !== 'id')
                     return (
