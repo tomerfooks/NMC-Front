@@ -7,17 +7,14 @@ const Single = props => {
         console.log('Getting data for single..')
         fetch(`http://localhost:4000/api/get/${objectType}/${id}`)
             .then(response => response.json())
-            .then(json => {
-                setSingle(json)
-            })
+            .then(json => setSingle(json))
     }
-
     useEffect(() => {
         getData({})
     }, [])
 
     return (
-        <div key={single.title} className="Single">
+        <div key={single.title} className='Single'>
             {Object.keys(single).map(fieldKey => {
                 if (fieldKey !== '_id' && fieldKey !== 'id')
                     return (

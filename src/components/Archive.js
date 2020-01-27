@@ -17,10 +17,7 @@ const Archive = props => {
             }
         })
             .then(response => response.json())
-            .then(myJson => {
-                console.log(myJson)
-                setArchive(myJson)
-            })
+            .then(myJson => setArchive(myJson))
             .catch(err => console.log(err))
     }
 
