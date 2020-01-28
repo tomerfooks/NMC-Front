@@ -5,9 +5,6 @@ const SingleInArchive = props => {
     const singleData = props.props
     const includeFields = ['title', 'content', 'type', 'status']
 
-    if (typeof singleData.content === 'undefined') return <></>
-    if (typeof singleData.type === 'undefined') return <></>
-
     return (
         <div
             className={'SingleInArchive ' + singleData.type}

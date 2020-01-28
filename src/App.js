@@ -61,7 +61,7 @@ function App() {
         else console.log('Current Logged User: ', currentUser)
     })
     return (
-        <div className='appContainer'>
+        <div className="appContainer">
             <AppContext.Provider value={{ currentUser, updateCurrentUser }}>
                 <AppContext.Consumer>
                     {user => (
@@ -70,7 +70,7 @@ function App() {
                             <Switch>
                                 <Route
                                     exact
-                                    path='/login'
+                                    path="/login"
                                     render={props => (
                                         <Login
                                             currentUser={{
@@ -83,7 +83,17 @@ function App() {
                                 ></Route>
                                 <Route
                                     exact
-                                    path='/:objectType'
+                                    path="/:objectType/:id"
+                                    render={props => (
+                                        <Single
+                                            currentUser={currentUser}
+                                            {...props}
+                                        />
+                                    )}
+                                />
+                                <Route
+                                    exact
+                                    path="/:objectType"
                                     render={props => (
                                         <Archive
                                             currentUser={currentUser}
@@ -94,19 +104,9 @@ function App() {
 
                                 <Route
                                     exact
-                                    path='/create/:objectType'
+                                    path="/create/:objectType"
                                     render={props => (
                                         <CreateNewObject
-                                            currentUser={currentUser}
-                                            {...props}
-                                        />
-                                    )}
-                                />
-                                <Route
-                                    exact
-                                    path='/:objectType/:id'
-                                    render={props => (
-                                        <Single
                                             currentUser={currentUser}
                                             {...props}
                                         />

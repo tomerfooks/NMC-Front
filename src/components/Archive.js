@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 
-import SingleInArchive from './templates/post/SingleInArchive'
+import SingleInArchive from './templates/SingleInArchive'
 
 const Archive = props => {
     const [archive, setArchive] = useState([])
@@ -17,7 +17,12 @@ const Archive = props => {
             }
         })
             .then(response => response.json())
-            .then(myJson => setArchive(myJson))
+            .then(json => {
+                json.map(obj => {
+                    obj.type = objectType
+                })
+                setArchive(json)
+            })
             .catch(err => console.log(err))
     }
 
