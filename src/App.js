@@ -81,16 +81,7 @@ function App() {
                                         />
                                     )}
                                 ></Route>
-                                <Route
-                                    exact
-                                    path="/:objectType/:id"
-                                    render={props => (
-                                        <Single
-                                            currentUser={currentUser}
-                                            {...props}
-                                        />
-                                    )}
-                                />
+
                                 <Route
                                     exact
                                     path="/:objectType"
@@ -107,6 +98,16 @@ function App() {
                                     path="/create/:objectType"
                                     render={props => (
                                         <CreateNewObject
+                                            currentUser={currentUser}
+                                            {...props}
+                                        />
+                                    )}
+                                />
+                                <Route
+                                    exact
+                                    path="/:objectType/:id"
+                                    render={props => (
+                                        <Single
                                             currentUser={currentUser}
                                             {...props}
                                         />

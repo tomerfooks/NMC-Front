@@ -5,4 +5,10 @@ $menuItemsAmount: 5;
     .menuItem {
         padding: 20px 10px;
     }
+    .subMenuItem {
+        display: none;
+    }
+    .menuItem.hovered .subMenuItem {
+        display: block;
+    }
 }

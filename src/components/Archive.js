@@ -21,6 +21,8 @@ const Archive = props => {
                 json.map(obj => {
                     obj.type = objectType
                 })
+                console.log(json)
+
                 setArchive(json)
             })
             .catch(err => console.log(err))
