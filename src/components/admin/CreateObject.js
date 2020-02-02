@@ -1,10 +1,14 @@
 import React from 'react'
-import { useState } from 'react'
+import { useState, useContext } from 'react'
 import AppContext from '../AppContext'
 import Cookie from 'js-cookie'
 
 const CreateObject = props => {
+    const appContext = useContext(AppContext)
     const submit = e => {
+        if (!require('../auth/CheckPermissions')) return
+        if (!appContext.currentUser.token || !appContext.currentUser.role)
+            return
         e.preventDefault()
         const newObject = {
             title: e.target.title.value,
@@ -17,7 +21,7 @@ const CreateObject = props => {
             headers: {
                 Accept: 'application/json',
                 'Content-Type': 'application/json',
-                Authorization: props.currentUser.token
+                Authorization: appContext.currentUser.token
             },
             mode: 'cors',
             cache: 'no-cache',

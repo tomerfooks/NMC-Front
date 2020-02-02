@@ -1,9 +1,11 @@
 import React from 'react'
-import { useState } from 'react'
+import { useState, useContext } from 'react'
 import AppContext from '../AppContext'
 import Cookie from 'js-cookie'
 
 const Login = props => {
+    const appContext = useContext(AppContext)
+    console.log('appcontext', appContext)
     const submit = e => {
         e.preventDefault()
         const email = e.target.email.value
@@ -25,7 +27,7 @@ const Login = props => {
             .then(response => response.json())
             .then(user => {
                 Cookie.set('token', user.token)
-                props.currentUser.updateCurrentUser(user)
+                appContext.updateCurrentUser(user)
             })
     }
     return (

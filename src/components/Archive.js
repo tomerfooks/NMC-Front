@@ -1,19 +1,20 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useContext } from 'react'
 
-import SingleInArchive from './templates/SingleInArchive'
-
+import SingleInArchive from './SingleInArchive'
+import AppContext from './AppContext'
 const Archive = props => {
     const [archive, setArchive] = useState([])
     const { objectType } = props.match.params
     const abortController = new AbortController()
     const signal = abortController.signal
+    const appContext = useContext(AppContext)
 
     const getData = query => {
         fetch(`http://localhost:4000/api/get/${objectType}`, {
             signal: signal,
             headers: {
                 'Content-Type': 'application/json',
-                Authorization: props.currentUser.token
+                Authorization: appContext.currentUser.token
             }
         })
             .then(response => response.json())

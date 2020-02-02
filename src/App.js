@@ -25,7 +25,10 @@ function App() {
         id: '',
         token: null
     })
-
+    const logout = () => {
+        Cookie.remove('token')
+        setCurrentUser({})
+    }
     const checkAuth = () => {
         function parseJwt(token) {
             var base64Url = token.split('.')[1]
@@ -73,57 +76,31 @@ function App() {
                                 <Route
                                     exact
                                     path='/login'
-                                    render={props => (
-                                        <Login
-                                            currentUser={{
-                                                currentUser,
-                                                updateCurrentUser
-                                            }}
-                                            {...props}
-                                        />
-                                    )}
+                                    render={props => <Login {...props} />}
                                 ></Route>
-
                                 <Route
                                     exact
                                     path='/:objectType'
-                                    render={props => (
-                                        <Archive
-                                            currentUser={currentUser}
-                                            {...props}
-                                        />
-                                    )}
+                                    render={props => <Archive {...props} />}
                                 />
-
                                 <Route
                                     exact
                                     path='/create/:objectType'
                                     render={props => (
-                                        <CreateObject
-                                            currentUser={currentUser}
-                                            {...props}
-                                        />
+                                        <CreateObject {...props} />
                                     )}
                                 />
                                 <Route
                                     exact
                                     path='/update/:objectType/:id'
                                     render={props => (
-                                        <UpdateObject
-                                            currentUser={currentUser}
-                                            {...props}
-                                        />
+                                        <UpdateObject {...props} />
                                     )}
                                 />
                                 <Route
                                     exact
                                     path='/:objectType/:id'
-                                    render={props => (
-                                        <Single
-                                            currentUser={currentUser}
-                                            {...props}
-                                        />
-                                    )}
+                                    render={props => <Single {...props} />}
                                 />
                             </Switch>
                         </Router>
