@@ -1,9 +1,9 @@
 import React from 'react'
 import { useState } from 'react'
-import AppContext from './AppContext'
+import AppContext from '../AppContext'
 import Cookie from 'js-cookie'
 
-const CreateNewObject = props => {
+const CreateObject = props => {
     const submit = e => {
         e.preventDefault()
         const newObject = {
@@ -30,7 +30,7 @@ const CreateNewObject = props => {
             })
     }
     return (
-        <div className='CreateNewObject'>
+        <div className='CreateObject'>
             <form onSubmit={submit}>
                 <input
                     type='text'
@@ -57,4 +57,4 @@ const CreateNewObject = props => {
     )
 }
 
-export default CreateNewObject
+export default CreateObject

@@ -13,7 +13,8 @@ import Login from './components/auth/Login'
 import AppContext from './components/AppContext'
 
 /// C R U D
-import CreateNewObject from './components/CreateNewObject'
+import CreateObject from './components/admin/CreateObject'
+import UpdateObject from './components/admin/UpdateObject'
 
 /// D E S I G N
 import './styles/App.scss'
@@ -48,6 +49,7 @@ function App() {
             setCurrentUser({
                 email: loggedUser.email,
                 id: loggedUser._id,
+                role: loggedUser.role,
                 token: Cookie.get('token')
             })
         }
@@ -61,7 +63,7 @@ function App() {
         else console.log('Current Logged User: ', currentUser)
     })
     return (
-        <div className="appContainer">
+        <div className='appContainer'>
             <AppContext.Provider value={{ currentUser, updateCurrentUser }}>
                 <AppContext.Consumer>
                     {user => (
@@ -70,7 +72,7 @@ function App() {
                             <Switch>
                                 <Route
                                     exact
-                                    path="/login"
+                                    path='/login'
                                     render={props => (
                                         <Login
                                             currentUser={{
@@ -84,7 +86,7 @@ function App() {
 
                                 <Route
                                     exact
-                                    path="/:objectType"
+                                    path='/:objectType'
                                     render={props => (
                                         <Archive
                                             currentUser={currentUser}
@@ -95,9 +97,9 @@ function App() {
 
                                 <Route
                                     exact
-                                    path="/create/:objectType"
+                                    path='/create/:objectType'
                                     render={props => (
-                                        <CreateNewObject
+                                        <CreateObject
                                             currentUser={currentUser}
                                             {...props}
                                         />
@@ -105,7 +107,17 @@ function App() {
                                 />
                                 <Route
                                     exact
-                                    path="/:objectType/:id"
+                                    path='/update/:objectType/:id'
+                                    render={props => (
+                                        <UpdateObject
+                                            currentUser={currentUser}
+                                            {...props}
+                                        />
+                                    )}
+                                />
+                                <Route
+                                    exact
+                                    path='/:objectType/:id'
                                     render={props => (
                                         <Single
                                             currentUser={currentUser}
