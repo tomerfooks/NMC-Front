@@ -5,10 +5,23 @@ $menuItemsAmount: 5;
     .menuItem {
         padding: 20px 10px;
     }
-    .subMenuItem {
+    .subMenu {
         display: none;
+        position: absolute;
+        background-color: white;
+        transition: 0.3s;
+        box-shadow: 4px 4px 30px rgba(0, 0, 0, 0.3);
     }
-    .menuItem.hovered .subMenuItem {
+    .menuItem.hovered .subMenu {
         display: block;
+    }
+    .subMenuItem {
+        padding: 20px 40px;
+        background-color: white;
+    }
+    .subMenuItem:hover {
+        color: white;
+        transition: 0.3s;
+        background-color: $mainColor;
     }
 }

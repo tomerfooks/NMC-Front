@@ -1,0 +1,26 @@
+input,
+button,
+textarea,
+select,
+option,
+label,
+.formButton,
+input.formButton,
+.formField {
+    min-height: 60px;
+    position: relative;
+    width: 100%;
+    border: 0px;
+    box-shadow: 5px 5px 24px rgba(0, 0, 0, 0.2);
+    margin: 10px;
+    padding: 0px 20px;
+    outline: none;
+}
+.formField:hover {
+    background-color: #f5f5f5;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+}
+input.formButton {
+    cursor: pointer;
+}

@@ -40,17 +40,9 @@ body {
         }
     }
     .Body {
-        grid-template-columns: 3fr 1fr;
-        width: 100%;
-
-        .content {
-            padding: 30px;
-
-            background-color: map-get($bgColors, 'light');
-        }
-        .sideBar {
-            background-color: map-get($bgColors, 'light');
-        }
+        max-width: $containerWidth;
+        margin: auto;
+        padding: 40px;
     }
     .Footer {
         grid-template-columns: 1fr 1fr 1fr;

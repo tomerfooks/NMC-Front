@@ -2,10 +2,13 @@ import React from 'react'
 import { useContext } from 'react'
 import { Link } from 'react-router-dom'
 import AppContext from './AppContext'
+import Cookie from 'js-cookie'
 
 const Menu = () => {
-    const updateUser = useContext(AppContext).updateCurrentUser
+    const appSettings = useContext(AppContext).appSettings
     const currentUser = useContext(AppContext).currentUser
+    const updateCurrentUser = useContext(AppContext).updateCurrentUser
+
     const toggleSubMenu = e => {
         if (e.target.classList.contains('menuItem')) {
             if (e.target.classList.contains('hovered'))
@@ -14,38 +17,46 @@ const Menu = () => {
         }
     }
     const logout = () => {
-        if (currentUser !== {} && currentUser) updateUser({})
-        console.log('logging out')
+        if (currentUser !== {} && currentUser) {
+            updateCurrentUser({})
+            Cookie.remove('token')
+            console.log('logging out')
+        }
     }
+
+    const logoutMenuItem = () => (
+        <div className="menuItem">
+            <Link to="/" onClick={logout}>
+                Logout
+            </Link>
+        </div>
+    )
+
     return (
-        <div className='Menu'>
-            <div className='menuItem'>
-                <Link to='/'>Home</Link>
-            </div>
-            <div
-                onMouseEnter={toggleSubMenu}
-                onMouseLeave={toggleSubMenu}
-                className='menuItem'
-            >
-                <Link to='/post'>Posts</Link>
-                <div className='subMenu'>
-                    <div className='subMenuItem'>
-                        <Link to='/create/post'>Create new Post</Link>
+        <div className="Menu">
+            <div onMouseEnter={toggleSubMenu} className="menuItem">
+                <Link to="/post">Posts</Link>
+                <div className="subMenu">
+                    <div className="subMenuItem">
+                        <Link to="/create/post">Create new Post</Link>
                     </div>
                 </div>
             </div>
-            <div className='menuItem'>
-                <Link to='/login'>Login</Link>
+            <div onMouseEnter={toggleSubMenu} className="menuItem">
+                <Link to="/product">Products</Link>
+                <div className="subMenu">
+                    <div className="subMenuItem">
+                        <Link to="/create/product">Create new Product</Link>
+                    </div>
+                </div>
             </div>
-
-            <div className='menuItem'>
-                <Link to='/' onClick={logout}>
-                    Logout
-                </Link>
-            </div>
-            <div className='menuItem'>
-                <Link to='/create/post'>Create</Link>
-            </div>
+            {currentUser.token !== null ? (
+                logoutMenuItem()
+            ) : (
+                <div className="menuItem">
+                    <Link to="/login">Login</Link>
+                </div>
+            )}
         </div>
     )
 }

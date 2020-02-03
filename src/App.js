@@ -1,9 +1,9 @@
 import React from 'react'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useContext } from 'react'
 import Cookie from 'js-cookie'
 
-//// M A IN
+//// M A I N
 import Header from './components/Header'
 import Archive from './components/Archive.js'
 import Single from './components/Single.js'
@@ -20,11 +20,41 @@ import UpdateObject from './components/admin/UpdateObject'
 import './styles/App.scss'
 
 function App() {
+    const [inita, setInita] = useState(false)
     const [currentUser, setCurrentUser] = useState({
         email: '',
         id: '',
         token: null
     })
+    const [appSettings, setAppSettings] = useState({})
+    const getAppSettings = () => {
+        console.log('Getting app settings..')
+        fetch(`http://localhost:4000/api/settings`, {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then(response =>
+            response
+                .json()
+                .then(settings => {
+                    fetch(`http://localhost:4000/api/schemas`, {
+                        headers: {
+                            'Content-Type': 'application/json'
+                        }
+                    }).then(response =>
+                        response.json().then(schemas => {
+                            setAppSettings({ settings, schemas }, () => {
+                                setInita(true)
+                            })
+                        })
+                    )
+                })
+                .catch(err =>
+                    console.log('Error with getting app settings.. ', err)
+                )
+        )
+    }
+
     const logout = () => {
         Cookie.remove('token')
         setCurrentUser({})
@@ -57,58 +87,67 @@ function App() {
             })
         }
     }
-
     const updateCurrentUser = freshlyLoggedUser =>
         setCurrentUser(freshlyLoggedUser)
 
     useEffect(() => {
+        getAppSettings()
         if (currentUser.token === null) checkAuth()
         else console.log('Current Logged User: ', currentUser)
-    })
-    return (
-        <div className='appContainer'>
-            <AppContext.Provider value={{ currentUser, updateCurrentUser }}>
+    }, [])
+
+    return inita ? (
+        <div className="appContainer">
+            <AppContext.Provider
+                value={{
+                    currentUser,
+                    updateCurrentUser,
+                    appSettings
+                }}
+            >
                 <AppContext.Consumer>
                     {user => (
                         <Router>
                             <Header></Header>
-                            <Switch>
-                                <Route
-                                    exact
-                                    path='/login'
-                                    render={props => <Login {...props} />}
-                                ></Route>
-                                <Route
-                                    exact
-                                    path='/:objectType'
-                                    render={props => <Archive {...props} />}
-                                />
-                                <Route
-                                    exact
-                                    path='/create/:objectType'
-                                    render={props => (
-                                        <CreateObject {...props} />
-                                    )}
-                                />
-                                <Route
-                                    exact
-                                    path='/update/:objectType/:id'
-                                    render={props => (
-                                        <UpdateObject {...props} />
-                                    )}
-                                />
-                                <Route
-                                    exact
-                                    path='/:objectType/:id'
-                                    render={props => <Single {...props} />}
-                                />
-                            </Switch>
+                            <div className="Body">
+                                <Switch>
+                                    <Route
+                                        exact
+                                        path="/login"
+                                        render={props => <Login {...props} />}
+                                    ></Route>
+                                    <Route
+                                        exact
+                                        path="/:objectType"
+                                        render={props => <Archive {...props} />}
+                                    />
+                                    <Route
+                                        exact
+                                        path="/create/:objectType"
+                                        render={props => (
+                                            <CreateObject {...props} />
+                                        )}
+                                    />
+                                    <Route
+                                        exact
+                                        path="/update/:objectType/:id"
+                                        render={props => (
+                                            <UpdateObject {...props} />
+                                        )}
+                                    />
+                                    <Route
+                                        exact
+                                        path="/:objectType/:id"
+                                        render={props => <Single {...props} />}
+                                    />
+                                </Switch>
+                            </div>
                         </Router>
                     )}
                 </AppContext.Consumer>
             </AppContext.Provider>
         </div>
-    )
+    ) : null
 }
 
 export default App
