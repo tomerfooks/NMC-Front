@@ -10,7 +10,9 @@ const Archive = props => {
     const appContext = useContext(AppContext)
 
     const getData = query => {
-        fetch(`http://localhost:4000/api/get/${objectType}`, {
+        console.log('Display Archive of ' + objectType)
+        setArchive([])
+        fetch(`http://localhost:4000/api/get/${objectType}?limit=5`, {
             signal: signal,
             headers: {
                 'Content-Type': 'application/json',
@@ -20,17 +22,18 @@ const Archive = props => {
             .then(response => response.json())
             .then(json => {
                 json.map(obj => (obj.type = objectType))
+                console.log('Setting Archive', json)
                 setArchive(json)
             })
             .catch(err => console.log(err))
     }
 
     useEffect(() => {
-        if (archive.length === 0) getData()
+        getData()
         return function cleanUp() {
             abortController.abort()
         }
-    }, [])
+    }, [objectType])
 
     return (
         <div className={'Archive ' + objectType} key={'archive ' + objectType}>

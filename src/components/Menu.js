@@ -9,12 +9,11 @@ const Menu = () => {
     const currentUser = useContext(AppContext).currentUser
     const updateCurrentUser = useContext(AppContext).updateCurrentUser
 
-    const toggleSubMenu = e => {
-        if (e.target.classList.contains('menuItem')) {
-            if (e.target.classList.contains('hovered'))
-                e.target.classList.remove('hovered')
-            else e.target.classList.add('hovered')
-        }
+    const showSubMenu = e => {
+        e.target.classList.add('hovered')
+    }
+    const hideSubMenu = e => {
+        e.target.classList.remove('hovered')
     }
     const logout = () => {
         if (currentUser !== {} && currentUser) {
@@ -34,15 +33,23 @@ const Menu = () => {
 
     return (
         <div className="Menu">
-            <div onMouseEnter={toggleSubMenu} className="menuItem">
+            <div
+                onMouseEnter={showSubMenu}
+                onMouseLeave={hideSubMenu}
+                className="menuItem"
+            >
                 <Link to="/post">Posts</Link>
-                <div className="subMenu">
+                <div onMouseLeave={hideSubMenu} className="subMenu">
                     <div className="subMenuItem">
                         <Link to="/create/post">Create new Post</Link>
                     </div>
                 </div>
             </div>
-            <div onMouseEnter={toggleSubMenu} className="menuItem">
+            <div
+                onMouseEnter={showSubMenu}
+                onMouseLeave={hideSubMenu}
+                className="menuItem"
+            >
                 <Link to="/product">Products</Link>
                 <div className="subMenu">
                     <div className="subMenuItem">

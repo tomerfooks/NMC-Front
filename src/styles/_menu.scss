@@ -21,8 +21,7 @@ $menuItemsAmount: 5;
         background-color: white;
     }
     .subMenuItem:hover {
-        color: white;
         transition: 0.3s;
-        background-color: $mainColor;
+        background-color: #ccc;
     }
 }
