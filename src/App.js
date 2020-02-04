@@ -20,7 +20,6 @@ import UpdateObject from './components/admin/UpdateObject'
 import './styles/App.scss'
 
 function App() {
-    const [inita, setInita] = useState(false)
     const [currentUser, setCurrentUser] = useState({
         email: '',
         id: '',
@@ -28,6 +27,7 @@ function App() {
     })
     const [appSettings, setAppSettings] = useState({})
     const getAppSettings = () => {
+        if (typeof appSettings.settings !== 'undefined') return
         console.log('Getting app settings..')
         fetch(`http://localhost:4000/api/settings`, {
             headers: {
@@ -43,9 +43,7 @@ function App() {
                         }
                     }).then(response =>
                         response.json().then(schemas => {
-                            setAppSettings({ settings, schemas }, () => {
-                                setInita(true)
-                            })
+                            setAppSettings({ settings, schemas })
                         })
                     )
                 })
@@ -55,10 +53,6 @@ function App() {
         )
     }
 
-    const logout = () => {
-        Cookie.remove('token')
-        setCurrentUser({})
-    }
     const checkAuth = () => {
         function parseJwt(token) {
             var base64Url = token.split('.')[1]
@@ -96,8 +90,8 @@ function App() {
         else console.log('Current Logged User: ', currentUser)
     }, [])
 
-    return inita ? (
-        <div className="appContainer">
+    return typeof appSettings.settings !== 'undefined' ? (
+        <div className='appContainer'>
             <AppContext.Provider
                 value={{
                     currentUser,
@@ -109,35 +103,35 @@ function App() {
                     {user => (
                         <Router>
                             <Header></Header>
-                            <div className="Body">
+                            <div className='Body'>
                                 <Switch>
                                     <Route
                                         exact
-                                        path="/login"
+                                        path='/login'
                                         render={props => <Login {...props} />}
                                     ></Route>
                                     <Route
                                         exact
-                                        path="/:objectType"
+                                        path='/:objectType'
                                         render={props => <Archive {...props} />}
                                     />
                                     <Route
                                         exact
-                                        path="/create/:objectType"
+                                        path='/create/:objectType'
                                         render={props => (
                                             <CreateObject {...props} />
                                         )}
                                     />
                                     <Route
                                         exact
-                                        path="/update/:objectType/:id"
+                                        path='/update/:objectType/:id'
                                         render={props => (
                                             <UpdateObject {...props} />
                                         )}
                                     />
                                     <Route
                                         exact
-                                        path="/:objectType/:id"
+                                        path='/:objectType/:id'
                                         render={props => <Single {...props} />}
                                     />
                                 </Switch>

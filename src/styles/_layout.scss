@@ -42,6 +42,8 @@ body {
     .Body {
         max-width: $containerWidth;
         margin: auto;
+        position: relative;
+
         padding: 40px;
     }
     .Footer {
