@@ -2,9 +2,12 @@ import React from 'react'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import { useState, useEffect, useContext } from 'react'
 import Cookie from 'js-cookie'
+import SideBar from './components/SideBar'
 
-//// M A I N
+/// M A I N
 import Header from './components/Header'
+
+/// O B J E C T S
 import Archive from './components/Archive.js'
 import Single from './components/Single.js'
 
@@ -52,7 +55,6 @@ function App() {
                 )
         )
     }
-
     const checkAuth = () => {
         function parseJwt(token) {
             var base64Url = token.split('.')[1]
@@ -88,7 +90,7 @@ function App() {
         getAppSettings()
         if (currentUser.token === null) checkAuth()
         else console.log('Current Logged User: ', currentUser)
-    }, [])
+    }, [currentUser])
 
     return typeof appSettings.settings !== 'undefined' ? (
         <div className='appContainer'>
@@ -103,38 +105,48 @@ function App() {
                     {user => (
                         <Router>
                             <Header></Header>
+
                             <div className='Body'>
-                                <Switch>
-                                    <Route
-                                        exact
-                                        path='/login'
-                                        render={props => <Login {...props} />}
-                                    ></Route>
-                                    <Route
-                                        exact
-                                        path='/:objectType'
-                                        render={props => <Archive {...props} />}
-                                    />
-                                    <Route
-                                        exact
-                                        path='/create/:objectType'
-                                        render={props => (
-                                            <CreateObject {...props} />
-                                        )}
-                                    />
-                                    <Route
-                                        exact
-                                        path='/update/:objectType/:id'
-                                        render={props => (
-                                            <UpdateObject {...props} />
-                                        )}
-                                    />
-                                    <Route
-                                        exact
-                                        path='/:objectType/:id'
-                                        render={props => <Single {...props} />}
-                                    />
-                                </Switch>
+                                <SideBar></SideBar>
+                                <div className='Content'>
+                                    <Switch>
+                                        <Route
+                                            exact
+                                            path='/login'
+                                            render={props => (
+                                                <Login {...props} />
+                                            )}
+                                        ></Route>
+                                        <Route
+                                            exact
+                                            path='/:objectType'
+                                            render={props => (
+                                                <Archive {...props} />
+                                            )}
+                                        />
+                                        <Route
+                                            exact
+                                            path='/create/:objectType'
+                                            render={props => (
+                                                <CreateObject {...props} />
+                                            )}
+                                        />
+                                        <Route
+                                            exact
+                                            path='/update/:objectType/:id'
+                                            render={props => (
+                                                <UpdateObject {...props} />
+                                            )}
+                                        />
+                                        <Route
+                                            exact
+                                            path='/:objectType/:id'
+                                            render={props => (
+                                                <Single {...props} />
+                                            )}
+                                        />
+                                    </Switch>
+                                </div>
                             </div>
                         </Router>
                     )}

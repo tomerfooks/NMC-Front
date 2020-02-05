@@ -2,6 +2,7 @@ import React from 'react'
 import { useState, useContext } from 'react'
 import AppContext from '../AppContext'
 import Cookie from 'js-cookie'
+import { Redirect } from 'react-router-dom'
 
 const Login = props => {
     const appContext = useContext(AppContext)
@@ -28,6 +29,7 @@ const Login = props => {
             .then(user => {
                 Cookie.set('token', user.token)
                 appContext.updateCurrentUser(user)
+                return <Redirect to='/' />
             })
     }
     return (

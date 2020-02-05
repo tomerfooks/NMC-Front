@@ -13,22 +13,17 @@ const SingleInArchive = props => {
             {Object.keys(singleData).map(fieldKey => {
                 const textField = (
                     <div
+                        key={fieldKey + 'key'}
                         className={`field ${fieldKey}`}
                     >{`${singleData[fieldKey]}`}</div>
                 )
-                const mainImageField = (
-                    <div className={`image  ${fieldKey}`}>
-                        <img src={singleData['mainImageURL']} />
-                    </div>
-                )
                 return (
                     includeFields.includes(fieldKey) && (
-                        <Link to={'/' + singleData.type + '/' + singleData._id}>
-                            {fieldKey === 'mainImageURL' ? (
-                                <img src={singleData.mainImageURL} />
-                            ) : (
-                                textField
-                            )}
+                        <Link
+                            key={fieldKey + '--key'}
+                            to={'/' + singleData.type + '/' + singleData._id}
+                        >
+                            {textField}
                         </Link>
                     )
                 )

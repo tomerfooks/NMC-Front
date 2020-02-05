@@ -12,17 +12,18 @@ const Archive = props => {
     const getData = query => {
         console.log('Display Archive of ' + objectType)
         setArchive([])
-        fetch(`http://localhost:4000/api/get/${objectType}?limit=5`, {
+        fetch(`http://localhost:4000/api/get/${objectType}`, {
             signal: signal,
             headers: {
                 'Content-Type': 'application/json',
-                Authorization: appContext.currentUser.token
+                Authorization: appContext.currentUser.token,
+                perPage: 5,
+                pageNumber: 1
             }
         })
-            .then(response => response.json())
+            .then(res => res.json())
             .then(json => {
                 json.map(obj => (obj.type = objectType))
-                console.log('Setting Archive', json)
                 setArchive(json)
             })
             .catch(err => console.log(err))

@@ -1,5 +1,5 @@
 import React from 'react'
-import { useContext } from 'react'
+import { useContext, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import AppContext from './AppContext'
 import Cookie from 'js-cookie'
@@ -24,44 +24,44 @@ const Menu = () => {
     }
 
     const logoutMenuItem = () => (
-        <div className="menuItem">
-            <Link to="/" onClick={logout}>
+        <div className='menuItem'>
+            <Link to='/' onClick={logout}>
                 Logout
             </Link>
         </div>
     )
-
+    useEffect(() => {}, [currentUser])
     return (
-        <div className="Menu">
+        <div className='Menu'>
             <div
                 onMouseEnter={showSubMenu}
                 onMouseLeave={hideSubMenu}
-                className="menuItem"
+                className='menuItem'
             >
-                <Link to="/post">Posts</Link>
-                <div onMouseLeave={hideSubMenu} className="subMenu">
-                    <div className="subMenuItem">
-                        <Link to="/create/post">Create new Post</Link>
+                <Link to='/post'>Posts</Link>
+                <div onMouseLeave={hideSubMenu} className='subMenu'>
+                    <div className='subMenuItem'>
+                        <Link to='/create/post'>Create new Post</Link>
                     </div>
                 </div>
             </div>
             <div
                 onMouseEnter={showSubMenu}
                 onMouseLeave={hideSubMenu}
-                className="menuItem"
+                className='menuItem'
             >
-                <Link to="/product">Products</Link>
-                <div className="subMenu">
-                    <div className="subMenuItem">
-                        <Link to="/create/product">Create new Product</Link>
+                <Link to='/product'>Products</Link>
+                <div className='subMenu'>
+                    <div className='subMenuItem'>
+                        <Link to='/create/product'>Create new Product</Link>
                     </div>
                 </div>
             </div>
             {currentUser.token !== null ? (
                 logoutMenuItem()
             ) : (
-                <div className="menuItem">
-                    <Link to="/login">Login</Link>
+                <div className='menuItem'>
+                    <Link to='/login'>Login</Link>
                 </div>
             )}
         </div>

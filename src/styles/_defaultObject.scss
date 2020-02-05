@@ -1,10 +1,8 @@
-.Archive.post {
-    background-color: map-get($bgColors, 'default');
+.Archive {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
-    grid-gap: map-get($padding, 'thick');
-
     .SingleInArchive {
+        margin: 2%;
         box-shadow: 4px 6px 24px #eee;
         background-color: map-get($bgColors, 'default');
         padding: map-get($padding, 'medium');
@@ -30,7 +28,7 @@
         }
     }
 }
-.Single.post {
+.Single {
     .title {
         font-size: map-get($fontSizes, 'title');
         color: $mainColor;

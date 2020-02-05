@@ -4,7 +4,12 @@ import Menu from './Menu'
 const Header = () => {
     return (
         <div className='Header'>
-            Header <Menu></Menu>
+            <img
+                className='logo'
+                src={require('../images/logo.png')}
+                alt='logo'
+            />{' '}
+            <Menu></Menu>
         </div>
     )
 }
