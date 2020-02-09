@@ -29,6 +29,8 @@
     }
 }
 .Single {
+    background-color: #fff;
+    padding: map-get($padding, 'thick');
     .title {
         font-size: map-get($fontSizes, 'title');
         color: $mainColor;

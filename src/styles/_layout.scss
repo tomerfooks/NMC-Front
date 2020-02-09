@@ -30,7 +30,18 @@ img {
     margin: 0 auto;
 
     .Header {
-        background-color: #fff;
+        background: #dd3e54; /* fallback for old browsers */
+        background: -webkit-linear-gradient(
+            to right,
+            #6be585,
+            #dd3e54
+        ); /* Chrome 10-25, Safari 5.1-6 */
+        background: linear-gradient(
+            to right,
+            #6be585,
+            #dd3e54
+        ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
         box-shadow: 0px 0px 20px #eee;
         width: $headerWidth;
         display: grid;
@@ -50,14 +61,15 @@ img {
         min-height: 600px;
         position: relative;
         padding: 40px;
-        background-color: blue;
+        background-color: #fff;
     }
 
     .SideBar {
         padding: 20px;
+
         padding-top: 40px;
         float: left;
-        background-color: #888;
+        background-color: #6ed981;
         color: #fff;
         min-height: 600px;
     }

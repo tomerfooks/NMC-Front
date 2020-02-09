@@ -8,7 +8,24 @@ $fontSizes: (
 );
 $mainFontFamily: 'Rubik', sans-serif;
 $secondaryFontFamily: 'Lato';
-
 a {
     text-decoration: none;
+}
+a,
+body,
+html,
+b,
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+input,
+button,
+select,
+option,
+span {
+    font-family: $mainFontFamily;
 }

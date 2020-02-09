@@ -10,6 +10,7 @@ const SingleInArchive = props => {
             className={'SingleInArchive ' + singleData.type}
             key={singleData._id}
         >
+
             {Object.keys(singleData).map(fieldKey => {
                 const textField = (
                     <div
@@ -18,16 +19,22 @@ const SingleInArchive = props => {
                     >{`${singleData[fieldKey]}`}</div>
                 )
                 return (
+
                     includeFields.includes(fieldKey) && (
+
                         <Link
                             key={fieldKey + '--key'}
                             to={'/' + singleData.type + '/' + singleData._id}
                         >
                             {textField}
+                        <div className="editSingleInArchive">
+                        </div>
                         </Link>
                     )
                 )
             })}
+                        <input type="radio" className="formField"/>
+
         </div>
     )
 }

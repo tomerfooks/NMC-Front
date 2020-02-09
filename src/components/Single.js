@@ -24,20 +24,20 @@ const Single = props => {
     }, [])
 
     return (
-        <div key={single.id} className="Single">
+        <div key={single.id} className='Single'>
             <img
                 src={single.mainImageURL}
-                className="singleField mainImageURL"
+                className='singleField mainImageURL'
             />
-            <div className="singleField title">
+            <div className='singleField title'>
                 <h1>{single.title ? single.title : 'Loading single'}</h1>
             </div>
 
             <div
-                className="singleField content"
+                className='singleField content'
                 dangerouslySetInnerHTML={renderHTML(single.content)}
             ></div>
-            <div className="singleField status">
+            <div className='singleField status'>
                 <span>Status: </span>
                 {single.status}
             </div>

@@ -7,11 +7,15 @@ label {
     min-height: 60px;
     position: relative;
     width: 100%;
+    font-size:16px;
     border: 0px;
-    box-shadow: 5px 5px 24px rgba(0, 0, 0, 0.2);
-    margin: 10px;
-    padding: 0px 20px;
     outline: none;
+}
+button:hover {
+    cursor: pointer;
+}
+.formField{
+    display:flex;
 }
 .formField:hover {
     background-color: #f5f5f5;
@@ -21,3 +25,4 @@ label {
 input.formButton {
     cursor: pointer;
 }
+

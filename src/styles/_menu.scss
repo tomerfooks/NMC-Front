@@ -4,7 +4,12 @@ $menuItemsAmount: 5;
     display: grid;
     .menuItem {
         padding: 20px 10px;
+        a {
+            color: white;
+            letter-spacing: 1px;
+        }
     }
+
     .subMenu {
         display: none;
         position: absolute;
@@ -16,12 +21,15 @@ $menuItemsAmount: 5;
     .menuItem.hovered .subMenu {
         display: block;
     }
-    .subMenuItem {
+    .subMenuItem{
         padding: 20px 40px;
-        background-color: white;
     }
-    .subMenuItem:hover {
+    .subMenuItem a{
+        color:$mainColor;
+    }
+    .subMenuItem:hover,.subMenuItem a:hover {
         transition: 0.3s;
-        background-color: #ccc;
+        background-color: $mainColor;
+        color:white;
     }
 }
