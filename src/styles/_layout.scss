@@ -63,10 +63,21 @@ img {
         padding: 40px;
         background-color: #fff;
     }
-
+    .singleInArchive {
+        border: 1px solid #ddd;
+        border-bottom: 2px solid #ccc;
+        padding: 20px;
+        padding-top: 0;
+        margin: 10px;
+        border-radius: 10px;
+        &:hover {
+            cursor: pointer;
+            transition: 0.2s;
+            box-shadow: 3px 3px 30px rgba(0, 0, 0, 0.2);
+        }
+    }
     .SideBar {
         padding: 20px;
-
         padding-top: 40px;
         float: left;
         background-color: #6ed981;

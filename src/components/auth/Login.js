@@ -27,6 +27,7 @@ const Login = props => {
         fetch(uri, options)
             .then(response => response.json())
             .then(user => {
+                console.log('user-',user)
                 Cookie.set('token', user.token)
                 appContext.updateCurrentUser(user)
                 return <Redirect to='/' />
@@ -41,11 +42,9 @@ const Login = props => {
                     placeholder='Enter Email'
                     className='formField'
                     name='email'
-                    value='tom@fooks.co.il'
                 />
                 <input
                     type='password'
-                    value='tomer123'
                     autoComplete='true'
                     placeholder='Enter Password'
                     className='formField'

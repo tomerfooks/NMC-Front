@@ -2,10 +2,11 @@ import React from 'react'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import { useState, useEffect, useContext } from 'react'
 import Cookie from 'js-cookie'
-import SideBar from './components/SideBar'
 
 /// M A I N
+import AppContext from './components/AppContext'
 import Header from './components/Header'
+import SideBar from './components/SideBar'
 
 /// O B J E C T S
 import Archive from './components/Archive.js'
@@ -13,7 +14,7 @@ import Single from './components/Single.js'
 
 /// A U T H
 import Login from './components/auth/Login'
-import AppContext from './components/AppContext'
+import Register from './components/auth/Register'
 
 /// C R U D
 import CreateObject from './components/admin/CreateObject'
@@ -31,7 +32,6 @@ function App() {
     const [appSettings, setAppSettings] = useState({})
     const getAppSettings = () => {
         if (typeof appSettings.settings !== 'undefined') return
-        console.log('Getting app settings..')
         fetch(`http://localhost:4000/api/settings`, {
             headers: {
                 'Content-Type': 'application/json'
@@ -55,7 +55,10 @@ function App() {
                 )
         )
     }
+    const abortController = new AbortController();
+
     const checkAuth = () => {
+
         function parseJwt(token) {
             var base64Url = token.split('.')[1]
             var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/')
@@ -73,7 +76,8 @@ function App() {
 
             return JSON.parse(jsonPayload)
         }
-        if (Cookie.get('token')) {
+        if (Cookie.get('token') && Cookie.get('token')!=='undefined') {
+            console.log('token',Cookie.get('token'))
             const loggedUser = parseJwt(Cookie.get('token'))
             setCurrentUser({
                 email: loggedUser.email,
@@ -87,13 +91,17 @@ function App() {
         setCurrentUser(freshlyLoggedUser)
 
     useEffect(() => {
+        
         getAppSettings()
         if (currentUser.token === null) checkAuth()
         else console.log('Current Logged User: ', currentUser)
+        return () => {
+            abortController.abort()
+          }
     }, [currentUser])
 
     return typeof appSettings.settings !== 'undefined' ? (
-        <div className='appContainer'>
+        <div className="appContainer">
             <AppContext.Provider
                 value={{
                     currentUser,
@@ -106,41 +114,48 @@ function App() {
                         <Router>
                             <Header></Header>
 
-                            <div className='Body'>
+                            <div className="Body">
                                 <SideBar></SideBar>
-                                <div className='Content'>
+                                <div className="Content">
                                     <Switch>
                                         <Route
                                             exact
-                                            path='/login'
+                                            path="/login"
                                             render={props => (
                                                 <Login {...props} />
                                             )}
                                         ></Route>
                                         <Route
                                             exact
-                                            path='/:objectType'
+                                            path="/register"
+                                            render={props => (
+                                                <Register {...props} />
+                                            )}
+                                        ></Route>
+                                        <Route
+                                            exact
+                                            path="/:objectType"
                                             render={props => (
                                                 <Archive {...props} />
                                             )}
                                         />
                                         <Route
                                             exact
-                                            path='/create/:objectType'
+                                            path="/create/:objectType"
                                             render={props => (
                                                 <CreateObject {...props} />
                                             )}
                                         />
                                         <Route
                                             exact
-                                            path='/update/:objectType/:id'
+                                            path="/update/:objectType/:id"
                                             render={props => (
                                                 <UpdateObject {...props} />
                                             )}
                                         />
                                         <Route
                                             exact
-                                            path='/:objectType/:id'
+                                            path="/:objectType/:id"
                                             render={props => (
                                                 <Single {...props} />
                                             )}

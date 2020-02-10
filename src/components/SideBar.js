@@ -4,25 +4,12 @@ import AppContext from './AppContext'
 export default function SideBar() {
     const appContext = useContext(AppContext)
     const [showSideBar, setShowSideBar] = useState(true)
-    const toggleSideBar = () => {
-        if (showSideBar) {
-            document.querySelector('.Body').style.gridTemplateColumns =
-                '1fr 10fr'
-            setShowSideBar(false)
-        } else {
-            document.querySelector('.Body').style.gridTemplateColumns =
-                '1fr 4fr'
-            setShowSideBar(true)
-        }
-    }
-    if(appContext.appSettings.settings.layout.indexOf('sidebar')!==-1)
-        return showSideBar ?
+    if (appContext.appSettings.settings.layout.indexOf('sidebar') !== -1)
+        return showSideBar ? (
             <div className={'SideBar'}>
-                <div onClick={toggleSideBar} className='toggleSideBar'>
-                    X
-                </div>
+                <div className="toggleSideBar">X</div>
                 Side bar
             </div>
-         : null
-        else return null
+        ) : null
+    else return null
 }
