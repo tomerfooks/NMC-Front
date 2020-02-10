@@ -1,74 +1,110 @@
-import React, { useEffect, useState, useContext } from 'react'
-
-import SingleInArchive from './SingleInArchive'
+import React, { useEffect, useState, useContext,Link } from 'react'
 import AppContext from './AppContext'
+
 const Archive = props => {
     const [archive, setArchive] = useState([])
-    const [perPage, setPerPage] = useState(5)
-    const [pageNumber, setPageNumber] = useState(0)
-    const perPageInput = React.createRef()
+    const [query, setQuery] = useState({})
+    const [perPage, setPerPage] = useState(55)
+    const [pageNumber, setPageNumber] = useState(0)    
     const { objectType } = props.match.params
-    const abortController = new AbortController()
-    const signal = abortController.signal
     const appContext = useContext(AppContext)
 
-    const getData = query => {
-        setArchive([])
+    const fieldsToInclude = ['type','status','category']
+    const filtersToInclude = ['status','category']
+
+    const getData = () => {
+        console.log('getting data from API')
         fetch(`http://localhost:4000/api/get/${objectType}`, {
-            signal: signal,
+            signal: new AbortController().signal,
             headers: {
                 'Content-Type': 'application/json',
                 Authorization: appContext.currentUser.token,
                 perPage: perPage,
-                pageNumber: pageNumber
-            }
+                pageNumber: pageNumber,
+                query: JSON.stringify(query)
+            },
         })
             .then(res => res.json())
             .then(json => {
-                setArchive([])
                 json.map(obj => (obj.type = objectType))
                 setArchive(json)
             })
             .catch(err => console.log(err))
     }
-    const nextPage = () => {
+    const nextPage = () => 
         setPageNumber(pageNumber + 1)
-        getData()
-    }
-    const previousPage = () => {
-        if (pageNumber === 0) return
+    
+    const previousPage = () => 
         setPageNumber(pageNumber - 1)
-        getData()
-    }
+    
     const changePerPage = e => {
+        setPageNumber(0)
         setPerPage(e.target.value)
-        getData()
     }
-
+    const filters = () => {
+        const { schema } = appContext.appSettings.schemas[objectType]
+        const getOptions = (field)=>{
+            const options = []
+            archive.map(single=>{
+                Object.keys(single).map(fieldKey=>{
+                    if(fieldKey===field)
+                    if(!options.includes(single[fieldKey]))
+                        options.push(single[fieldKey])
+                })
+            })
+            return options
+        }
+        const updateFilters = (e) => {
+            console.log('Updating filters..',e.target.value)
+            setQuery({[e.target.classList[0]]:e.target.value})
+            getData()
+        }
+        return <div className="archiveFilters">{
+        Object.keys(schema).map(field=>
+                schema[field].filterable ?
+                    <div className="filter">
+                    <select className={field} defaultValue={''} onChange={updateFilters} >
+                    <option disabled selected  onChange={updateFilters}>Select {field}</option>
+                    {getOptions(field).map(option=>{
+                    return <option value={option}>{option}</option>
+                    })}
+                    </select>
+                    </div> : null
+        )
+        }</div>
+    }
     const pagination = () => {
-           return (<>
-             <button onClick={previousPage}>Previous Page </button>
-            <button onClick={nextPage}>Next Page </button>
-            <input type='number' defaultValue={perPage} onChange={changePerPage}></input>
-           </>)
+           return (<div>
+             <button onClick={previousPage}>Prev</button>
+    ( {pageNumber+1 } )
+            <button onClick={nextPage}>Next</button>
+            | Per Page: <input type='number' defaultValue={perPage} onChange={changePerPage}></input>
+            </div>
+           )
     }
-    const filter = () =>{
-        return <></>
+    const sort = () => {
+        return <div>Sort By</div>
     }
     useEffect(() => {
-        if(archive.length===0)
-        getData()
-    }, [objectType, pageNumber,perPage])
-
+        getData(query)
+    }, [objectType, pageNumber,perPage, query])
     return  (
-        archive.length!==0 ? <div className={'Archive ' + objectType} key={'archive ' + objectType}>
-            {pagination()}
-            {archive.map(singleData => {
-                return (
-                    <SingleInArchive key={singleData._id} props={singleData} />
-                )
-            })}
-        </div> :  <>Loading</> 
+        <div className={'Archive ' + objectType} key={'archive ' + objectType}>
+            {pagination()}            
+            {filters()}
+            {sort()}
+            {archive.map(single =>
+                <div key={single._id} className={'singleInArchive '+single.type}>
+                <h3>{single.title}</h3>
+                {Object.keys(single).map(fieldKey=>
+                fieldsToInclude.includes(fieldKey) ?
+                    <div key={single._id+'-'+fieldKey} className={"field "+ fieldKey}>
+                    {single[fieldKey]}
+                    </div> : null
+                )}
+                </div>
+            )}
+        </div>
     ) 
 }
 export default Archive

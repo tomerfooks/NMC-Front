@@ -8,7 +8,7 @@ const Header = () => {
                 className='logo'
                 src={require('../images/logo.png')}
                 alt='logo'
-            />{' '}
+            />
             <Menu></Menu>
         </div>
     )

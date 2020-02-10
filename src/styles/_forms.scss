@@ -6,7 +6,6 @@ option,
 label {
     min-height: 60px;
     position: relative;
-    width: 100%;
     font-size:16px;
     border: 0px;
     outline: none;
@@ -15,7 +14,6 @@ button:hover {
     cursor: pointer;
 }
 .formField{
-    display:flex;
 }
 .formField:hover {
     background-color: #f5f5f5;

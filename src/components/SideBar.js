@@ -15,19 +15,14 @@ export default function SideBar() {
             setShowSideBar(true)
         }
     }
-    if (showSideBar)
-        return (
+    if(appContext.appSettings.settings.layout.indexOf('sidebar')!==-1)
+        return showSideBar ?
             <div className={'SideBar'}>
                 <div onClick={toggleSideBar} className='toggleSideBar'>
                     X
                 </div>
                 Side bar
             </div>
-        )
-    else
-        return (
-            <div onClick={toggleSideBar} className='toggleSideBar'>
-                X
-            </div>
-        )
+         : null
+        else return null
 }
