@@ -9,12 +9,6 @@ const Menu = () => {
     const currentUser = useContext(AppContext).currentUser
     const updateCurrentUser = useContext(AppContext).updateCurrentUser
 
-    const showSubMenu = e => {
-        e.target.classList.add('hovered')
-    }
-    const hideSubMenu = e => {
-        e.target.classList.remove('hovered')
-    }
     const logout = () => {
         if (currentUser !== {} && currentUser) {
             updateCurrentUser({})
@@ -33,30 +27,16 @@ const Menu = () => {
     useEffect(() => {}, [currentUser])
     return (
         <div className="Menu">
-            <div
-                onMouseEnter={showSubMenu}
-                onMouseLeave={hideSubMenu}
-                className="menuItem"
-            >
+            <div className="menuItem">
                 <Link to="/post">Posts</Link>
-                <div onMouseLeave={hideSubMenu} className="subMenu">
-                    <div className="subMenuItem">
-                        <Link to="/create/post">Create new Post</Link>
-                    </div>
-                </div>
             </div>
-            <div
-                onMouseEnter={showSubMenu}
-                onMouseLeave={hideSubMenu}
-                className="menuItem"
-            >
+            <div className="menuItem">
                 <Link to="/product">Products</Link>
-                <div className="subMenu">
-                    <div className="subMenuItem">
-                        <Link to="/create/product">Create new Product</Link>
-                    </div>
-                </div>
             </div>
+            <div className="menuItem">
+                <Link to="/media">Media</Link>
+            </div>
+
             {currentUser.token !== null ? (
                 logoutMenuItem()
             ) : (

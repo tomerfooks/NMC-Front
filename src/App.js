@@ -16,6 +16,9 @@ import Single from './components/Single.js'
 import Login from './components/auth/Login'
 import Register from './components/auth/Register'
 
+/// A D M I N
+import Media from './components/admin/Media'
+
 /// C R U D
 import CreateObject from './components/admin/CreateObject'
 import UpdateObject from './components/admin/UpdateObject'
@@ -55,10 +58,9 @@ function App() {
                 )
         )
     }
-    const abortController = new AbortController();
+    const abortController = new AbortController()
 
     const checkAuth = () => {
-
         function parseJwt(token) {
             var base64Url = token.split('.')[1]
             var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/')
@@ -76,8 +78,8 @@ function App() {
 
             return JSON.parse(jsonPayload)
         }
-        if (Cookie.get('token') && Cookie.get('token')!=='undefined') {
-            console.log('token',Cookie.get('token'))
+        if (Cookie.get('token') && Cookie.get('token') !== 'undefined') {
+            console.log('token', Cookie.get('token'))
             const loggedUser = parseJwt(Cookie.get('token'))
             setCurrentUser({
                 email: loggedUser.email,
@@ -91,13 +93,12 @@ function App() {
         setCurrentUser(freshlyLoggedUser)
 
     useEffect(() => {
-        
         getAppSettings()
         if (currentUser.token === null) checkAuth()
         else console.log('Current Logged User: ', currentUser)
         return () => {
             abortController.abort()
-          }
+        }
     }, [currentUser])
 
     return typeof appSettings.settings !== 'undefined' ? (
@@ -110,10 +111,9 @@ function App() {
                 }}
             >
                 <AppContext.Consumer>
-                    {user => (
+                    {() => (
                         <Router>
                             <Header></Header>
-
                             <div className="Body">
                                 <SideBar></SideBar>
                                 <div className="Content">
@@ -123,6 +123,13 @@ function App() {
                                             path="/login"
                                             render={props => (
                                                 <Login {...props} />
+                                            )}
+                                        ></Route>
+                                        <Route
+                                            exact
+                                            path="/media"
+                                            render={props => (
+                                                <Media {...props} />
                                             )}
                                         ></Route>
                                         <Route
