@@ -1,35 +1,36 @@
 $menuItemsAmount: 5;
 .Menu {
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-    display: grid;
-    .menuItem {
-        padding: 20px 10px;
-        a {
-            color: white;
-            letter-spacing: 1px;
-        }
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+  display: grid;
+  .menuItem {
+    padding: 20px 10px;
+    a {
+      color: white;
+      letter-spacing: 1px;
     }
+  }
 
-    .subMenu {
-        display: none;
-        position: absolute;
-        z-index: 999;
-        background-color: white;
-        transition: 0.3s;
-        box-shadow: 4px 4px 30px rgba(0, 0, 0, 0.3);
-    }
-    .menuItem.hovered .subMenu {
-        display: block;
-    }
-    .subMenuItem{
-        padding: 20px 40px;
-    }
-    .subMenuItem a{
-        color:$mainColor;
-    }
-    .subMenuItem:hover,.subMenuItem a:hover {
-        transition: 0.3s;
-        background-color: $mainColor;
-        color:white;
-    }
+  .subMenu {
+    display: none;
+    position: absolute;
+    z-index: 999;
+    background-color: white;
+    transition: 0.3s;
+    box-shadow: 4px 4px 30px rgba(0, 0, 0, 0.3);
+  }
+  .menuItem.hovered .subMenu {
+    display: block;
+  }
+  .subMenuItem {
+    padding: 20px 40px;
+  }
+  .subMenuItem a {
+    color: $mainColor;
+  }
+  .subMenuItem:hover,
+  .subMenuItem a:hover {
+    transition: 0.3s;
+    background-color: $mainColor;
+    color: white;
+  }
 }
